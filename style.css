@@ -73,10 +73,33 @@ button:hover {
 	opacity: 50%;
 }
 
-.history-box {
+.history-list {
 	position: relative;
 	margin: 1px;
 	height: 400px;
 	width: 348px;
 	background-color: #eeeeee;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.history-list > li {
+	font-family: "Yanone Kaffeesatz", sans-serif;
+	font-size: 16px;
+	padding: 5px 10px 0px 5px;
+}
+
+.player-score,
+.computer-score {
+	margin-left: 10px;
+}
+
+.player-win,
+.player-score {
+	color: blue;
+}
+
+.computer-win,
+.computer-score {
+	color: red;
 }

@@ -3,6 +3,10 @@ let computerScore = 0;
 let round = 0;
 let overallScore = { player: 0, computer: 0 };
 
+let overallPlayerSpan = document.querySelector(".player-score");
+let overallComputerSpan = document.querySelector(".computer-score");
+const historyList = document.querySelector(".history-list");
+
 function computerPlay() {
 	let play = "";
 
@@ -61,49 +65,52 @@ function game() {
 		let computerSelection = computerPlay();
 		let playerSelection = this.id;
 		let roundPlayed = playRound(playerSelection, computerSelection);
+		let liElement = document.createElement("li");
 
 		switch (roundPlayed.winner) {
 			case "tie":
-				console.log(
-					`round ${round} is tied, score is ${playerScore} - ${computerScore}`
-				);
+				liElement.innerHTML = `round ${round} is a tie, score is ${playerScore} - ${computerScore}`;
+				historyList.insertBefore(liElement, historyList.childNodes[0]);
+
 				break;
 			case "player":
 				playerScore += 1;
-				console.log(
-					`${roundPlayed.winnerPlay} beats ${roundPlayed.loserPlay}. ${roundPlayed.winner} wins round ${round}, score is ${playerScore} - ${computerScore}`
-				);
+				liElement.innerHTML = `${roundPlayed.winnerPlay} beats ${roundPlayed.loserPlay}. ${roundPlayed.winner} wins round ${round}, score is ${playerScore} - ${computerScore}`;
+				historyList.insertBefore(liElement, historyList.childNodes[0]);
 				break;
 			case "computer":
 				computerScore += 1;
-				console.log(
-					`${roundPlayed.winnerPlay} beats ${roundPlayed.loserPlay}. ${roundPlayed.winner} wins round ${round}, score is ${playerScore} - ${computerScore}`
-				);
+				liElement.innerHTML = `${roundPlayed.winnerPlay} beats ${roundPlayed.loserPlay}. ${roundPlayed.winner} wins round ${round}, score is ${playerScore} - ${computerScore}`;
+				historyList.insertBefore(liElement, historyList.childNodes[0]);
 				break;
 		}
 		round += 1;
 	}
 }
 
+function resetGame() {
+	playerScore = 0;
+	computerScore = 0;
+	round = 0;
+}
+
 setInterval(function checkWinner() {
+	let liElement = document.createElement("li");
+
 	if (playerScore == 3) {
 		overallScore.player += 1;
-		console.log(
-			`Player wins overall score is ${overallScore.player} - ${overallScore.computer}`
-		);
-		playerScore = 0;
-		computerScore = 0;
-		round = 0;
-		console.log("game reseted..");
+		liElement.innerHTML = `Player wins overall score is ${overallScore.player} - ${overallScore.computer}`;
+		liElement.classList.add("player-win");
+		historyList.insertBefore(liElement, historyList.childNodes[0]);
+		overallPlayerSpan.innerHTML = overallScore.player;
+		resetGame();
 	} else if (computerScore == 3) {
 		overallScore.computer += 1;
-		console.log(
-			`Computer wins overall score is ${overallScore.player} - ${overallScore.computer}`
-		);
-		playerScore = 0;
-		computerScore = 0;
-		round = 0;
-		console.log("game reseted..");
+		liElement.innerHTML = `Computer wins overall score is ${overallScore.player} - ${overallScore.computer}`;
+		liElement.classList.add("computer-win");
+		historyList.insertBefore(liElement, historyList.childNodes[0]);
+		overallComputerSpan.innerHTML = overallScore.computer;
+		resetGame();
 	}
 }, 1000);
 
