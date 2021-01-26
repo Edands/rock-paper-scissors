@@ -5,9 +5,13 @@ let computerScore = 0;
 let round = 0;
 let overallScore = { player: 0, computer: 0 };
 
-let overallPlayerSpan = document.querySelector(".player-score");
-let overallComputerSpan = document.querySelector(".computer-score");
+// DOM selectors
+
+const overallPlayerSpan = document.querySelector(".player-score");
+const overallComputerSpan = document.querySelector(".computer-score");
 const historyList = document.querySelector(".history-list");
+
+// Choses a random play between the three options
 
 function computerPlay() {
 	let play = "";
@@ -26,6 +30,8 @@ function computerPlay() {
 
 	return play;
 }
+
+// Receives two plays and decides the winner of the round
 
 function playRound(playerSelection, computerSelection) {
 	if (typeof playerSelection == "string") {
@@ -62,11 +68,18 @@ function playRound(playerSelection, computerSelection) {
 	}
 }
 
+// Plays the game if the Bo5 has not been decided
+
 function game() {
 	if ((playerScore || computerScore) <= 2) {
+		// Random computer play
 		let computerSelection = computerPlay();
+		// Player play is decided by the button calling the function
 		let playerSelection = this.id;
+
 		let liElement = document.createElement("li");
+
+		//  Displays the selections made for 2 seconds
 		let playerSelectDOM = document.getElementById(`${playerSelection}`);
 		let computerSelectDOM = document.getElementById(
 			`computer-${computerSelection}`
@@ -80,11 +93,13 @@ function game() {
 			computerSelectDOM.classList.remove("computer-selection");
 		}, 2000);
 
+		// Plays the round
 		let roundPlayed = playRound(playerSelection, computerSelection);
 
+		// Updates the socre and the history logs
 		switch (roundPlayed.winner) {
 			case "tie":
-				liElement.innerHTML = `round ${round} is a tie, score is ${playerScore} - ${computerScore}`;
+				liElement.innerHTML = `round ${round} is a tie, both played ${roundPlayed.play}`;
 				historyList.insertBefore(liElement, historyList.childNodes[0]);
 				break;
 			case "player":
@@ -102,11 +117,15 @@ function game() {
 	}
 }
 
+// Resets the Bo5
+
 function resetGame() {
 	playerScore = 0;
 	computerScore = 0;
 	round = 0;
 }
+
+// Checks for a Bo5 winner
 
 setInterval(function checkWinner() {
 	let liElement = document.createElement("li");
@@ -128,14 +147,54 @@ setInterval(function checkWinner() {
 	}
 }, 1000);
 
+// Computer vs Computer Simulation
+
+let simRunning = false;
+const simButton = document.querySelector(".simulation-start");
+const playerNameSpan = document.querySelector(".player-name");
+const runAnimation = document.querySelector(".sim-running");
+
+// Runs the simulation if it's not running, stops if it is.
+// making a play for the player every 3 seconds
+
+function simGame() {
+	if (!simRunning) {
+		intervalID = setInterval(() => {
+			let simPlayerSelection = computerPlay();
+			playerNameSpan.innerHTML = "Computer";
+			document.querySelector(`#${simPlayerSelection}`).click();
+		}, 3000);
+		simButton.innerHTML = "Stop Simulation";
+		runAnimation.style.display = "inline-block";
+		simRunning = true;
+	} else {
+		stopSimGame();
+	}
+}
+
+// Stops the simulation
+
+function stopSimGame() {
+	clearInterval(intervalID);
+	playerNameSpan.innerHTML = "Player";
+	simButton.innerHTML = "Run Simulation";
+	runAnimation.style.display = "none";
+	simRunning = false;
+	resetGame();
+}
+
+// Makes an animation with 3 dots (...)
+
+var el = runAnimation,
+	i = 0,
+	load = setInterval(function () {
+		i = ++i % 4;
+		el.innerHTML = "Simulation Running " + Array(i + 1).join(".");
+	}, 1000);
+
 // Event Listeners
 
-// Player
 document.querySelector("#rock").addEventListener("click", game);
 document.querySelector("#paper").addEventListener("click", game);
 document.querySelector("#scissors").addEventListener("click", game);
-
-// Computer
-document.querySelector("#computer-rock");
-document.querySelector("#computer-paper");
-document.querySelector("#computer-scissors");
+simButton.addEventListener("click", simGame);

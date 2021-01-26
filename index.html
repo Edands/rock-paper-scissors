@@ -9,10 +9,19 @@
 		<title>Rock Paper Scissors</title>
 	</head>
 	<body onload="">
-		<div class="tittle"><h1>Rock Paper Scissors</h1></div>
+		<div class="tittle">
+			<h1>Rock Paper Scissors</h1>
+			<button class="control-btn simulation-start">Run Simulation</button>
+			<!-- <button class="control-btn">Clear History</button> -->
+			<h1 class="sim-running">Simulation Running</h1>
+		</div>
+
 		<div class="game-container">
 			<div id="player" class="player-container">
-				<h1>Player <span class="player-score"></span></h1>
+				<h1>
+					<span class="player-name">Player</span
+					><span class="player-score"></span>
+				</h1>
 				<div class="box-container">
 					<button id="rock" class="play-box">
 						<img src="resources/hand-rock.png" alt="" />
@@ -54,7 +63,7 @@
 					<h1>Sciss</h1>
 				</div>
 			</div>
-			<div id="player" class="player-container">
+			<div id="history" class="player-container">
 				<h1>History</h1>
 				<ul class="history-list">
 					<li>
