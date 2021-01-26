@@ -50,6 +50,7 @@ h1 {
 	height: 80px;
 	background-color: #eeeeee;
 	border: 2px solid #86868673;
+	transition: 1s;
 }
 .play-box > img {
 	margin: 0;
@@ -69,8 +70,33 @@ h1 {
 	display: inline-block;
 }
 
-button:hover {
-	opacity: 50%;
+#rock:hover,
+#paper:hover,
+#scissors:hover {
+	opacity: 90%;
+	background-color: blue;
+}
+
+.player-selection {
+	animation: player-shadow 0.3s forwards;
+}
+
+.computer-selection {
+	animation: computer-shadow 0.3s forwards;
+}
+
+@keyframes player-shadow {
+	100% {
+		background-color: blue;
+		box-shadow: 0px 0px 10px 10px blue;
+	}
+}
+
+@keyframes computer-shadow {
+	100% {
+		background-color: red;
+		box-shadow: 0px 0px 10px 10px red;
+	}
 }
 
 .history-list {

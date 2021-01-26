@@ -1,3 +1,5 @@
+// Game score variables
+
 let playerScore = 0;
 let computerScore = 0;
 let round = 0;
@@ -64,14 +66,26 @@ function game() {
 	if ((playerScore || computerScore) <= 2) {
 		let computerSelection = computerPlay();
 		let playerSelection = this.id;
-		let roundPlayed = playRound(playerSelection, computerSelection);
 		let liElement = document.createElement("li");
+		let playerSelectDOM = document.getElementById(`${playerSelection}`);
+		let computerSelectDOM = document.getElementById(
+			`computer-${computerSelection}`
+		);
+
+		playerSelectDOM.classList.add("player-selection");
+		computerSelectDOM.classList.add("computer-selection");
+
+		setTimeout(function () {
+			playerSelectDOM.classList.remove("player-selection");
+			computerSelectDOM.classList.remove("computer-selection");
+		}, 2000);
+
+		let roundPlayed = playRound(playerSelection, computerSelection);
 
 		switch (roundPlayed.winner) {
 			case "tie":
 				liElement.innerHTML = `round ${round} is a tie, score is ${playerScore} - ${computerScore}`;
 				historyList.insertBefore(liElement, historyList.childNodes[0]);
-
 				break;
 			case "player":
 				playerScore += 1;
@@ -122,8 +136,6 @@ document.querySelector("#paper").addEventListener("click", game);
 document.querySelector("#scissors").addEventListener("click", game);
 
 // Computer
-document.querySelector("#computer-rock").addEventListener("click", () => {});
-document.querySelector("#computer-paper").addEventListener("click", () => {});
-document
-	.querySelector("#computer-scissors")
-	.addEventListener("click", () => {});
+document.querySelector("#computer-rock");
+document.querySelector("#computer-paper");
+document.querySelector("#computer-scissors");
