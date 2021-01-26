@@ -3,10 +3,62 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="/style.css" />
 		<link rel="stylesheet" href="/reset.css" />
+		<link rel="stylesheet" href="/style.css" />
+
 		<title>Rock Paper Scissors</title>
 	</head>
-	<body onload="game()"></body>
+	<body onload="">
+		<div class="tittle"><h1>Rock Paper Scissors</h1></div>
+		<div class="game-container">
+			<div id="player" class="player-container">
+				<h1>Player</h1>
+				<div class="box-container">
+					<button id="rock" class="play-box">
+						<img src="/resources/hand-rock.png" alt="" />
+					</button>
+					<h1>Rock</h1>
+				</div>
+				<div class="box-container">
+					<button id="paper" class="play-box">
+						<img src="/resources/hand-paper.png" alt="" />
+					</button>
+					<h1>Paper</h1>
+				</div>
+				<div class="box-container">
+					<button id="scissors" class="play-box">
+						<img src="/resources/hand-scissors.png" alt="" />
+					</button>
+					<h1>Sciss</h1>
+				</div>
+			</div>
+
+			<div id="computer" class="player-container">
+				<h1>Computer</h1>
+				<div class="box-container">
+					<button id="computer-rock" class="play-box">
+						<img src="/resources/hand-rock.png" alt="" />
+					</button>
+					<h1>Rock</h1>
+				</div>
+				<div class="box-container">
+					<button id="computer-paper" class="play-box">
+						<img src="/resources/hand-paper.png" alt="" />
+					</button>
+					<h1>Paper</h1>
+				</div>
+				<div class="box-container">
+					<button id="computer-scissors" class="play-box">
+						<img src="/resources/hand-scissors.png" alt="" />
+					</button>
+					<h1>Sciss</h1>
+				</div>
+			</div>
+			<div id="player" class="player-container">
+				<h1>History</h1>
+				<div class="history-box"></div>
+			</div>
+		</div>
+	</body>
 	<script src="/script.js"></script>
 </html>

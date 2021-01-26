@@ -1,3 +1,8 @@
+let playerScore = 0;
+let computerScore = 0;
+let round = 0;
+let overallScore = { player: 0, computer: 0 };
+
 function computerPlay() {
 	let play = "";
 
@@ -52,14 +57,9 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-	let playerScore = 0;
-	let computerScore = 0;
-	let round = 0;
-	console.log("game started");
-
-	while (playerScore < 3 && computerScore < 3) {
+	if ((playerScore || computerScore) <= 2) {
 		let computerSelection = computerPlay();
-		let playerSelection = computerPlay();
+		let playerSelection = this.id;
 		let roundPlayed = playRound(playerSelection, computerSelection);
 
 		switch (roundPlayed.winner) {
@@ -84,3 +84,39 @@ function game() {
 		round += 1;
 	}
 }
+
+setInterval(function checkWinner() {
+	if (playerScore == 3) {
+		overallScore.player += 1;
+		console.log(
+			`Player wins overall score is ${overallScore.player} - ${overallScore.computer}`
+		);
+		playerScore = 0;
+		computerScore = 0;
+		round = 0;
+		console.log("game reseted..");
+	} else if (computerScore == 3) {
+		overallScore.computer += 1;
+		console.log(
+			`Computer wins overall score is ${overallScore.player} - ${overallScore.computer}`
+		);
+		playerScore = 0;
+		computerScore = 0;
+		round = 0;
+		console.log("game reseted..");
+	}
+}, 1000);
+
+// Event Listeners
+
+// Player
+document.querySelector("#rock").addEventListener("click", game);
+document.querySelector("#paper").addEventListener("click", game);
+document.querySelector("#scissors").addEventListener("click", game);
+
+// Computer
+document.querySelector("#computer-rock").addEventListener("click", () => {});
+document.querySelector("#computer-paper").addEventListener("click", () => {});
+document
+	.querySelector("#computer-scissors")
+	.addEventListener("click", () => {});
